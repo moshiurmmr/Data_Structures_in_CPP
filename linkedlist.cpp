@@ -4,7 +4,11 @@ This program implements a simple linked list with following APIs (functionalitie
 - appendAtHead: inserts a node at the head/beginning of the Linked List
 - remove: delets a node from the Linked List
 - printLL: prints the values stored in the nodes of the Linked List 
+
+Author: Moshiur Rahman
 */
+
+
 # include <iostream>
 
 using namespace std;
