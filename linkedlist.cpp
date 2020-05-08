@@ -1,5 +1,5 @@
 /* 
-This program implements a simple linked list with following APIs (functionalities)
+This program implements a simple linked list with the following APIs (functionalities):
 - append: inserts a node at the end of the Linked List
 - appendAtHead: inserts a node at the head/beginning of the Linked List
 - remove: delets a node from the Linked List
