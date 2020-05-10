@@ -31,7 +31,7 @@ class LinkedList {
 public:
     
     // head node of the Linked List
-    Node* head = new Node(0); // first node data is always this value 0
+    Node* head = NULL; // first node data is always this value 0
 
     // append function to insert a new node at the end of the linkedlist
     void append(int data){
@@ -114,14 +114,15 @@ int main(){
    LinkedList ll;
    cout << "Insert nodes to the Linked List" << endl;
    ll.append(5);
+   ll.append(3);
    ll.append(10);
    ll.append(15);
    ll.printLL();
    cout << " Delete 15 from the Linked List " << endl;
    ll.remove(15);
    ll.printLL();
-   cout << "delete head from the Linked List" << endl;
-   ll.remove(0);
+   cout << "delete head (5) from the Linked List" << endl;
+   ll.remove(5);
    ll.printLL();
    cout << "append 100 at the head of the Linked List " << endl;
    ll.appendAthead(100);
