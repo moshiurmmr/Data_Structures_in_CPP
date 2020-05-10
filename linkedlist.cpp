@@ -31,7 +31,7 @@ class LinkedList {
 public:
     
     // head node of the Linked List
-    Node* head = NULL; // first node data is always this value 0
+    Node* head = NULL; // initialze the head to NULL
 
     // append function to insert a new node at the end of the linkedlist
     void append(int data){
