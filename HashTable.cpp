@@ -1,8 +1,9 @@
 /* 
-This program implements a Hash Table uisng list container. It has the following APIs (functionalities):
-- insertData: to insert data to the index determined by the key
-- deleteData: to delete data from teh index pointed by the key
-- printHashTable: to print the hash table
+This program implements a simple phone book with name and phone number using a Hash Table.
+It has the following APIs (functionalities):
+- insertData: to insert (name and phone number) pair
+- deleteData: to delete a phone book entry
+- printHashTable: to print the phone book
 
 Author: Moshiur Rahman
 */
@@ -12,57 +13,92 @@ Author: Moshiur Rahman
 
 using namespace std;
 
+#define TABLE_SIZE  10;
+
+
+
 // HasTable class
 class  HashTable
 {
 private:
-    list<int> *table; // table is a pointer to the hash table
-    int total_elements; // total elements in the Hash Table
-    
+    list< pair <string, int> > *table; // table is a pointer to the hash table
+    //int total_elements; // total elements in the Hash Table
+    /*
     // hash function to convert key to indices of the hash table
     int hashFun(int key){
         return key % total_elements;
     }
+    */
 
 public:
+ 
     // constructor for the HashTable
-    HashTable(int n){
-        total_elements = n;
-        table = new list<int>[total_elements];
+    HashTable(){
+        int total_elements = TABLE_SIZE;
+        table = new list< pair <string, int> > [total_elements];
+        //cout << "inside the constructor" << endl;
     }
 
+    // hash function
+    int hashFun(const char * str) {
+        int hash_i = 565;
+
+        while (*str != '\0') {
+            hash_i = ((hash_i << 6) + (int)(*str)) % TABLE_SIZE;
+            str++;
+        }
+        //cout << "insided hashFun " << endl;
+        return hash_i % TABLE_SIZE;
+}
+
     // insert data to the hash table
-    void insertData (int key){
+    void insertData (const char *name, int phone_number){
+        //cout << "insering a new item in the hash table" << endl;
         // get index
-        int index = hashFun(key);
-        table[index].push_back(key);
+        int index = hashFun(name);
+        //cout << "index is " << index << endl;
+        table[index].push_back(make_pair(name, phone_number));
+        //cout << "insertion of the item finished" << endl;
+        
     }
-    
+
+
     // delete a data from the hash table
-    void deleteData(int key){
+    void deleteData(const char *name){
         // get index
-        int index = hashFun(key);
-        list<int>::iterator i; // i is the iterator of the list
+        int index = hashFun(name);
+        list<pair <string, int> >::iterator it; // it is the iterator of the list
         // iterator through the list at the index of the hash table
-        for(i = table[index].begin(); i != table[index].end(); i++){
-            if (*i == key)
+        for(it = table[index].begin(); it != table[index].end(); it++){
+            if (it->first == name)
             break;
         }
-        // if the key is found delete it
-        if (i != table[index].end())
-            table[index].erase(i);
+        // if the name is found delete the (name, phone_number) pair
+        if (it != table[index].end())
+            table[index].erase(it);
     }
 
     // print the hash table
     void printHashTable(){
-        // loop through the indices of the hash table
-        for (int i=0; i < total_elements; i++){
-            cout << "index " << i << ": ";
+        cout << "\t\t Phone Book \t \t" << endl;
+        cout << "Index" << "\t" << "Name" << "\t" << "Phone Number" << endl;
+        int table_length = TABLE_SIZE;
+        for (int i = 0; i < table_length; i++){
+            cout << i << ": \t";
             // loop through each element of the list of the element
-            list<int>::iterator j;
-            for (j=table[i].begin(); j != table[i].end(); j++ )
-            cout << *j << " => " ;
+
+            // iterator for the list
+            list<pair <string, int> >::iterator it;
+            // loop through the indices of the hash table
+            
+            for (it = table[i].begin(); it != table[i].end(); it++){
+                //cout << "inside printHashTable for loop" << endl;
+                cout << "\t" << it->first << "\t" << it->second;
+            }
             cout << endl;
+
+
+
         }
 
     }
@@ -70,20 +106,14 @@ public:
 
 
 int main(){
-    // create a hash table with 5 indices
-    HashTable myHashTable(5);
-    // data to be stored in the hash table
-    int arr[] = {1, 8, 5, 5, 6 ,8 ,9, 90, 65, 34};
-
-    // insert the data to the hash table
-    for (int i =0; i < 10; i++)
-        myHashTable.insertData(arr[i]);
-    // display the hash table
-    cout << " The Hash Table is " << endl;
-    myHashTable.printHashTable();
-
-    // delete an element from the hash table
-    cout << "Delete 90 from the hash table " << endl;
-    myHashTable.deleteData(90);
-    myHashTable.printHashTable();
+    HashTable myHashtable;
+    myHashtable.insertData("bidyut", 212);
+    myHashtable.insertData("moshiur", 343);
+    myHashtable.insertData("moshiur", 613);
+    myHashtable.insertData("raman", 723);
+    myHashtable.printHashTable();
+    cout << "delete entry for bidyut " << endl;
+    myHashtable.deleteData("bidyut");
+    myHashtable.printHashTable();
+    return 0;
 }
