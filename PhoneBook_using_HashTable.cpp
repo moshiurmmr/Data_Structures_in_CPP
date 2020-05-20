@@ -13,7 +13,7 @@ Author: Moshiur Rahman
 
 using namespace std;
 
-#define TABLE_SIZE  10;
+#define TABLE_SIZE  10; // size of the Phone Book
 
 
 
@@ -21,25 +21,17 @@ using namespace std;
 class  HashTable
 {
 private:
-    list< pair <string, int> > *table; // table is a pointer to the hash table
-    //int total_elements; // total elements in the Hash Table
-    /*
-    // hash function to convert key to indices of the hash table
-    int hashFun(int key){
-        return key % total_elements;
-    }
-    */
+    list< pair <string, int> > *phoneBook; // phoneBook is a pointer to the phone book hash table
 
 public:
  
     // constructor for the HashTable
     HashTable(){
         int total_elements = TABLE_SIZE;
-        table = new list< pair <string, int> > [total_elements];
-        //cout << "inside the constructor" << endl;
+        phoneBook = new list< pair <string, int> > [total_elements];
     }
 
-    // hash function
+    // hash function to convert name to indices of the hash table (phone book)
     int hashFun(const char * str) {
         int hash_i = 565;
 
@@ -51,31 +43,47 @@ public:
         return hash_i % TABLE_SIZE;
 }
 
-    // insert data to the hash table
+    // insert a (name, phone_number) pair in the phone book
     void insertData (const char *name, int phone_number){
-        //cout << "insering a new item in the hash table" << endl;
         // get index
         int index = hashFun(name);
-        //cout << "index is " << index << endl;
-        table[index].push_back(make_pair(name, phone_number));
-        //cout << "insertion of the item finished" << endl;
-        
+        // insert the (name, phone_number) pair at the tail of the list
+        phoneBook[index].push_back(make_pair(name, phone_number));
+
     }
 
+    // search an entry from the phone book
+    int searchData(const char * name){
+        // get the index for the name 
+        int index = hashFun(name);
+        // iterator for traversing the list at the index of the phone book
+        list<pair <string, int> >::iterator it;
+        cout << "Below is the phone number(s) result for " << name << endl;
+        for (it = phoneBook[index].begin(); it != phoneBook[index].end(); it++){
+            if (it->first == name){
+                {cout << it->second;
+                cout << "\t";}
+                cout << endl;
+            }
+            else
+                cout << "There is no phone book entry for " << it->first << "\t please check the name";
+                     
+        }
+    }
 
-    // delete a data from the hash table
+    // delete an entry from the phone book
     void deleteData(const char *name){
         // get index
         int index = hashFun(name);
         list<pair <string, int> >::iterator it; // it is the iterator of the list
         // iterator through the list at the index of the hash table
-        for(it = table[index].begin(); it != table[index].end(); it++){
+        for(it = phoneBook[index].begin(); it != phoneBook[index].end(); it++){
             if (it->first == name)
             break;
         }
         // if the name is found delete the (name, phone_number) pair
-        if (it != table[index].end())
-            table[index].erase(it);
+        if (it != phoneBook[index].end())
+            phoneBook[index].erase(it);
     }
 
     // print the hash table
@@ -91,7 +99,7 @@ public:
             list<pair <string, int> >::iterator it;
             // loop through the indices of the hash table
             
-            for (it = table[i].begin(); it != table[i].end(); it++){
+            for (it = phoneBook[i].begin(); it != phoneBook[i].end(); it++){
                 //cout << "inside printHashTable for loop" << endl;
                 cout << "\t" << it->first << "\t" << it->second;
             }
@@ -112,8 +120,11 @@ int main(){
     myHashtable.insertData("moshiur", 613);
     myHashtable.insertData("raman", 723);
     myHashtable.printHashTable();
-    cout << "delete entry for bidyut " << endl;
-    myHashtable.deleteData("bidyut");
+    cout << "Search phone numbers for moshiur" << endl;
+    myHashtable.searchData("moshiur");
+    //myHashtable.printHashTable();
+    cout << "delete entry for moshiur " << endl;
+    myHashtable.deleteData("moshiur");
     myHashtable.printHashTable();
     return 0;
 }
