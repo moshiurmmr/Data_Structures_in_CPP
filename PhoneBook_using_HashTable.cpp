@@ -6,6 +6,15 @@ It has the following APIs (functionalities):
 - printHashTable: to print the phone book
 
 Author: Moshiur Rahman
+
+To do:
+- Fix bug in deleteData(). For entries with the same key, it only removes the first entry. 
+It should remove all the entries pertaining to a key.
+- For insertData() function, it should check if the name for the input (name, phone_number)
+is already existing, if so, should print a message notifying the user.
+- make the phone book interactive. When run, it should display instructions on how to insert,
+delete phone entries, how to display the phone book, etc.
+- make a GUI for the phone book! -- stress goal :)
 */
 
 #include <iostream>
