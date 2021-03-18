@@ -9,7 +9,8 @@ Author: Moshiur Rahman
 
 class Node{
 /*
-A node contains the data and a pointer to the next node.
+    a Node class for nodes in the linked list. It contains two elements one
+    containting the data and the other is a pointer to the next node
 */
     public:
         int data = 0;
@@ -22,6 +23,12 @@ A node contains the data and a pointer to the next node.
 };
 
 class Linkdedlist{
+/*
+    The Linkedlist class contains a pointer to the head of the list. It also contains the following functions
+    - append() - to insert a new node at the end of the list
+    - removeItem() - to delete a node/data from the list
+    - printList() - to print the elements of the list
+*/
     private:
         Node* head = NULL; // head of the list
         Node* tail = NULL; // tail of the list
@@ -113,13 +120,13 @@ int main(){
     Linkdedlist mylist;
     mylist.append(2);
     mylist.append(4);
-    //mylist.append(6);
+    mylist.append(6);
     mylist.printList();
     std::cout<<std::endl;
     std::cout<<std::endl;
-    //mylist.removeItem(4); // works
-    //mylist.removeItem(6); //works
-    mylist.removeItem(2); // bug, head becomes the tail :(
+    mylist.removeItem(4);
+    //mylist.removeItem(6);
+    //mylist.removeItem(2);
     mylist.printList();
 
 
