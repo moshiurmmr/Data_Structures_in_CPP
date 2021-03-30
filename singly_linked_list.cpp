@@ -129,6 +129,53 @@ class Linkedlist{
             std::cout << tmp->data << std::endl;
         }
 
+        void deleteDuplicate(){
+            Node* tmp = head;
+            while(tmp != NULL){ // if the linked list is not empty then traverse
+                Node* tmp1 = tmp;
+                while(tmp1->next_node != NULL){ // for each node tmp traverse the rest of the linked list using tmp1
+                    if (tmp1->next_node->data == tmp->data){
+                        tmp1->next_node = tmp1->next_node->next_node; // if duplicate, then delete the node
+                    }
+                    else {
+                        tmp1 = tmp1->next_node; // if no duplicate, go to the next node
+                    }
+                }
+                tmp = tmp->next_node;
+
+            }
+            /*
+            while(tmp->next_node != NULL){
+                int cur_data = tmp->data;// start with the data in the head of the linked list
+                Node* tmp1 = tmp; // a second pointer to traverse the rest of the linked list
+                while(tmp1->next_node != NULL){ // for each node, traverse the rest of the nodes
+                    int dup_count = 1;
+                    if(tmp1->next_node->data == cur_data){
+                        dup_count = dup_count + 1;
+                        if (dup_count > 1){ //
+                            tmp1->next_node = tmp1->next_node->next_node; // delete the duplicate node
+                            dup_count = dup_count - 1; // decrement the dup_count
+                            //tmp1 = tmp1->next_node; // go to the next node
+                            return;
+                        }
+                    }
+                    tmp1 = tmp1->next_node; // go to the next node
+                }
+                // if the last node contains a duplicate
+                //if(tmp1->next_node->data == cur_data){
+
+                //}
+
+                tmp = tmp->next_node; // go to the next node
+
+            }
+            */
+
+
+
+
+        }
+
 };
 
 
@@ -147,10 +194,16 @@ ll1.append(5);
 ll1.append(10);
 ll1.append(20);
 ll1.append(10);
+ll1.append(5);
+ll1.append(20);
+ll1.append(10);
+ll1.append(5);
 ll1.printList();
-ll1.deleteNode(10);
-ll1.printList();
-ll1.deleteNode(10);
+std::cout <<"delete duplicates" << std::endl;
+ll1.deleteDuplicate();
+//ll1.deleteNode(10);
+//ll1.printList();
+//ll1.deleteNode(10);
 ll1.printList();
 
 
