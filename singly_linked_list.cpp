@@ -95,7 +95,7 @@ class Linkedlist{
                     if (tmp->next_node->data == i){
                         tmp->next_node = tmp->next_node->next_node;
                         std::cout << "deleting " << i << " from the list" << std::endl;
-                        return;
+                        //return;
                     }
                     tmp = tmp->next_node;
                 }
@@ -130,6 +130,9 @@ class Linkedlist{
         }
 
         void deleteDuplicate(){
+        /*
+        This function deletes any duplicate nodes from the linked list.
+        */
             Node* tmp = head;
             while(tmp != NULL){ // if the linked list is not empty then traverse
                 Node* tmp1 = tmp;
@@ -194,6 +197,8 @@ ll1.append(5);
 ll1.append(10);
 ll1.append(20);
 ll1.append(10);
+ll1.deleteNode(5);
+ll1.printList();
 ll1.append(5);
 ll1.append(20);
 ll1.append(10);
