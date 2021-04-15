@@ -1,5 +1,5 @@
 /*
-This is the head file for the graph class.
+This is the header file for the graph class.
 */
 class Graph{
     private:
