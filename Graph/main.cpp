@@ -23,6 +23,10 @@ int main(){
     mygraph.containsNode(3);
     mygraph.containsNode(6);
     mygraph.neighborsList();
+    mygraph.deleteNode(4);
+    mygraph.printGraph();
+    mygraph.neighborsList();
+    mygraph.printGraph();
 
     return 0;
 }
