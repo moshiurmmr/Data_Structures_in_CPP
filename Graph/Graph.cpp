@@ -89,3 +89,49 @@ void Graph::neighborsList(){
             std::cout << std::endl;
         }
 }
+
+void Graph::deleteNode(int node){
+// this function deletes the node from the Graph and also updates the affected edges
+
+    // check to see if the node exists in the Graph
+    bool nodeExist = containsNode(node);
+    int nodePos = 0; // node position in the Graph (graphNodes) array
+    if (nodeExist){
+        // delete the node
+        for(std::vector<int>::const_iterator i = graphNodes.begin(); i < graphNodes.end(); i++){
+        // iterate over all nodes. one point to be careful here is that std::vector::end returns an iterator to the
+        // element following the last element of the container, not the last container. Hence, used i < graphNodes.end()
+            if (*i == node){
+                graphNodes.erase(graphNodes.begin() + nodePos);
+                std::cout << "deleting node " << node << std::endl;
+            }
+            nodePos ++;
+        }
+
+    }
+
+    // delete the node from the edgesA
+        int posA = 0;
+        for(std::vector<int>::iterator j = edgesA.begin(); j < edgesA.end(); j++){
+            if(*j == node){
+                edgesA.erase(edgesA.begin() + posA); // remove node from edgesA list
+                edgesB.erase(edgesB.begin() + posA); // remove corresponding neighbors in edgesB list
+                std::cout << "inside edgesA loop "  << std::endl;
+            }
+            posA += 1;
+        }
+        // delete the node from the edgesB
+        int posB = 0;
+        for(std::vector<int>::iterator k = edgesB.begin(); k < edgesB.end(); k++){
+            if(*k == node){
+                edgesB.erase(edgesB.begin() + posB); // remove node from edgesB list
+                edgesA.erase(edgesA.begin() + posB); // remove corresponding neighbors in edgesA list
+            }
+            std::cout << "inside edgesB loop "  << std::endl;
+            posB += 1;
+        }
+        // update the nodeNeighbors map
+        //int x = Graph::nodeNeighbors();
+        //int x = this->nodeNeighbors();
+
+}
