@@ -15,6 +15,10 @@ void Graph::addNode(int node){
     graphNodes.push_back(node);
 }
 
+int Graph::getGraphSize(){
+    return graphLen;
+}
+
 void Graph::addEdge(int nodeA, int nodeB){
 // To do: check if the node(s) exist
     std::cout <<"adding an edge between " << nodeA << " and " << nodeB << std::endl;
@@ -90,7 +94,45 @@ void Graph::neighborsList(){
         }
 }
 
+std::vector<int> Graph::nodeNeighbors(int node){
+    std::map<int, std::vector<int>> neighbors; // a map data structure keeps track of all the neighbors of a node
+        // here, the first element of the map is the index of the node and the corresponding vector in the second
+        // element keeps all the neighbors of that node
+        int count1 = 0;
+        for(std::vector<int>::iterator i = edgesA.begin(); i != edgesA.end(); i++){
+            neighbors[edgesA[count1]].push_back(edgesB[count1]);
+            count1 += 1;
+        }
+
+        int count2 = 0;
+        for(std::vector<int>::iterator i = edgesB.begin(); i != edgesB.end(); i++){
+            neighbors[edgesB[count2]].push_back(edgesA[count2]);
+            count2 += 1;
+        }
+
+        // print the neighbor list of the Graph
+        // std::cout << "The neighbor list of the Graph is: " << std::endl;
+        std::vector<int> myNeighbors;
+        for (std::map<int, std::vector<int>>::iterator i = neighbors.begin(); i != neighbors.end(); i++){
+        // iterate for each index i.e., the first element of the map
+            //std::cout << "Neighbors of node " << i->first << "=> ";
+            if (i->first == node){
+                for(std::vector<int>::iterator it = i->second.begin(); it != i->second.end(); it++){
+                    myNeighbors.push_back(*it);
+
+                }
+
+            }
+
+        }
+        //std::cout << myNeighbors;
+
+        return myNeighbors;
+
+}
+
 void Graph::deleteNode(int node){
+// this function deletes the node from the Graph and also updates the affected edges
 // this function deletes the node from the Graph and also updates the affected edges
 
     // check to see if the node exists in the Graph
@@ -134,4 +176,26 @@ void Graph::deleteNode(int node){
         //int x = Graph::nodeNeighbors();
         //int x = this->nodeNeighbors();
 
+}
+
+void Graph::printDFS(int node){
+/* print all the nodes in the graph using Depth First Search (DFS) algorithm.
+It is not very efficient to implent DFS as part of the map class becasue the array, marked, which tracks the
+nodes that have been visited during the graph traversal, gets filled up with all 'true' boolean values. So, next
+time if we want to call the DFS-based function the graph traversal just does not happen.
+Hence, the DFS should be implemented outside of the map class.
+
+*/
+    std::vector<int> myNeighbors;
+        myNeighbors = this->nodeNeighbors(node);
+        //std::cout << "inside DFS function" << std::endl;
+        std::cout << node << " ";
+        marked[node] = true;
+        for (std::vector<int>::iterator it = myNeighbors.begin(); it != myNeighbors.end(); it++){
+            if (!marked[*it]){
+                //std::cout << *it << " ";
+                //marked[*it] = true;
+                this->printDFS(*it);
+            }
+        }
 }
