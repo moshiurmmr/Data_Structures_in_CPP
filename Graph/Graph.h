@@ -14,7 +14,7 @@ class Graph{
         //Graph(int size); // constructor of the class
         //bool marked = {false * graphLen};
         //bool marked [graphLen] = {false} ;
-        bool marked [] ;
+        //bool marked [] ;
         void addNode(int node);
         void addEdge(int nodeA, int nodeB);
         bool containsNode(int node); // check if the node is in the graph
